@@ -130,7 +130,7 @@
   
         const task = {
           title: text,
-          id: Date.now(),
+          id: Date.now().toString(),
           completed: false
         };
         e.target.value = "";
