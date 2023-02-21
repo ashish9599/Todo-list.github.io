@@ -102,16 +102,13 @@
             tasks.push(task);
             renderlist();
             showNotifacation("task added successfully");
-            // return;
+            return;
           })
           .catch(function (error) {
             console.log("error", error);
           });
   
-        tasks.push(task);
-        renderlist();
-        showNotifacation("task added successfully");
-        return;
+      
       }
     }
   
