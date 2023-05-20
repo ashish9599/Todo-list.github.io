@@ -6,23 +6,8 @@
     // console.log("working");
   
     async function fetchTodo() {
-      // fetch("https://jsonplaceholder.typicode.com/todos")
-      //   .then(function (response) {
-      //     console.log(response);
-      //     return response.json();
-      //   })
-      //   .then(function (data) {
-      //     console.log(data);
-      //     tasks = data.slice(0, 10);
-      //     renderlist();
-      //   })
-      //   .catch(function (error) {
-      //     console.log("error", error);
-      //   });
       try {
-        const response = await fetch(
-          "https://jsonplaceholder.typicode.com/todos"
-        );
+        const response = await fetch("https://jsonplaceholder.typicode.com/todos");
         const data = await response.json();
         tasks = data.slice(0, 10);
         renderlist();
@@ -60,8 +45,9 @@
     }
   
     function toggleTask(taskId) {
+      console.log(taskId)
       const task = tasks.filter(function (task) {
-        return task.id === Number(taskId);
+        return task.id !=taskId;
       });
   
       if (task.length > 0) {
@@ -71,13 +57,13 @@
         showNotifacation("toggle succesfully");
         return;
       }
-  
-      showNotifacation("could not toggle the");
+        showNotifacation("could not toggle the");
+      
     }
   
     function deleteTask(taskId) {
       const newTasks = tasks.filter(function (task) {
-        return task.id !== taskId;
+        return task.id != taskId;
       });
       tasks = newTasks;
       renderlist();
@@ -91,7 +77,7 @@
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(task)
+          body: JSON.stringify(tast)
         })
           .then(function (response) {
             console.log(response);
@@ -108,7 +94,6 @@
             console.log("error", error);
           });
   
-      
       }
     }
   
@@ -130,7 +115,7 @@
   
         const task = {
           title: text,
-          id: Date.now().toString(),
+          id: Date.now(),
           completed: false
         };
         e.target.value = "";
@@ -140,21 +125,22 @@
     function handleClicklistner(e) {
       const target = e.target;
       // console.log(target);
-      if (target.className === "delete") {
+      if (target.className === 'delete') {
         const taskId = target.dataset.id;
         deleteTask(taskId);
         return;
       } else if (target.className === "custom-checkbox") {
-        const taskId = target.id;
+        const taskId = target.dataset.id;
         toggleTask(taskId);
         return;
       }
-    }
+    } 
     function initializeApp() {
       fetchTodo();
       addTaskInput.addEventListener("keyup", handleInputKeypress);
       document.addEventListener("click", handleClicklistner);
     }
     initializeApp();
-  })();
+  })
+  ();
   
