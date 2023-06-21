@@ -77,7 +77,7 @@
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(tast)
+          body: JSON.stringify(task)
         })
           .then(function (response) {
             console.log(response);
