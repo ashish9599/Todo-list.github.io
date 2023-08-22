@@ -22,7 +22,7 @@
                          <input
                           type="checkbox"
                           id="${task.id}"  ${task.completed ? "checked" : " "}
-                          data-id="12"
+                          data-id="${task.id}"
                           class="custom-checkbox"
                         />
                         <label for="${task.id}">${task.title}</label>
@@ -45,19 +45,20 @@
     }
   
     function toggleTask(taskId) {
-      console.log(taskId)
-      const task = tasks.filter(function (task) {
-        return task.id !=taskId;
-      });
-  
-      if (task.length > 0) {
-        const currTask = task[0];
-        currTask.completed = !currTask.completed;
+  let done=false;  
+tasks.map((task)=>{
+        if(taskId==task.id){
+          task.completed=!task.completed;
+        done=true;
+        }
+        return task;
+      })
+      if(done){
         renderlist();
-        showNotifacation("toggle succesfully");
-        return;
+        showNotifacation("task toggle successfully");      
+      }else{
+        showNotifacation("connot able to toggle successfully");      
       }
-        showNotifacation("could not toggle the");
       
     }
   
@@ -131,6 +132,7 @@
         return;
       } else if (target.className === "custom-checkbox") {
         const taskId = target.dataset.id;
+        console.log("custom",taskId)
         toggleTask(taskId);
         return;
       }
